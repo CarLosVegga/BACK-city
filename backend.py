@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 def create():
     global c 
     c = City()
-    response = jsonify({"ok": 201})
+    response = jsonify({"Commit control": "ok"})
     response.status_code = 201
     response.headers['Access-Control-Expose-Headers'] = '*'
     response.headers['Access-Control-Allow-Origin'] = '*'
