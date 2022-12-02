@@ -1,9 +1,12 @@
 import flask
 from flask.json import jsonify
+from flask_cors import CORS
+import json
 import os
 from model import *
 
 app = flask.Flask(__name__)
+cors = CORS(app)
 
 # On IBM Cloud Cloud Foundry, get the port number from the environment variable PORT
 # When running this app on the local machine, default the port to 8000
@@ -17,20 +20,32 @@ def root():
 def create():
     global c 
     c = City()
-    response = jsonify({"Commit control": "ok"})
-    response.status_code = 201
-    response.headers['Access-Control-Expose-Headers'] = '*'
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.autocorrect_location_header = False
-    return response
+    return {
+        'statusCode': 201,
+        'headers': {
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+        },
+        'body': json.dumps('Hello from Lambda!')
+    }
 
 @app.route("/step", methods=["GET"])
 def queryState():
+    # response = jsonify{"data": []}
     steps = []
     # Return a 15 steps batch
     for _ in range(0, 15):
         steps.append(c.step())
-    return jsonify({"data": steps})
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+        },
+        'body': json.dumps({'data': (steps)})
+    }
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=port, debug=True)
