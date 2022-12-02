@@ -13,7 +13,7 @@ from math import sqrt
 
 from BFS import BFS
 
-FRAME_RATE = 30
+FRAME_RATE = 60
 
 class Node():
     def __init__(self, pos = [0, 0], adjs = [], trafficLights = {}):
@@ -52,13 +52,13 @@ class Car(Agent):
         self.speed = np.array(new_speed)
 
         if self.direction == 'left':
-            new_pos = (self.pos + np.array([0.3, 0.0]) * self.speed).tolist()
+            new_pos = (self.pos + np.array([0.2, 0.0]) * self.speed).tolist()
         elif self.direction == 'right':
-            new_pos = (self.pos + np.array([0.3, 0.0]) * self.speed).tolist()
+            new_pos = (self.pos + np.array([0.2, 0.0]) * self.speed).tolist()
         elif self.direction == 'up':
-            new_pos = (self.pos + np.array([0.0, 0.3]) * self.speed).tolist()
+            new_pos = (self.pos + np.array([0.2, 0.3]) * self.speed).tolist()
         elif self.direction == 'down':
-            new_pos = (self.pos + np.array([0.0, 0.3]) * self.speed).tolist()
+            new_pos = (self.pos + np.array([0.2, 0.3]) * self.speed).tolist()
 
         if self.arrivedToNode(new_pos, nextNode, self.direction):
             self.pos = self.model.matrix[nextNode].pos

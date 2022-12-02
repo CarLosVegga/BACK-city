@@ -35,7 +35,7 @@ def queryState():
     # response = jsonify{"data": []}
     steps = []
     # Return a 15 steps batch
-    for _ in range(0, 15):
+    for _ in range(0, 60):
         steps.append(c.step())
     return {
         'statusCode': 200,
